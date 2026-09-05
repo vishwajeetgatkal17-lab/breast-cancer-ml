@@ -122,4 +122,4 @@ if st.button("🔍 Predict"):
 
     prediction = model.predict(input_data)
 
-    st.success(f"Predicted Status: {prediction[0]}")a
+    st.success(f"Predicted Status: {prediction[0]}")
