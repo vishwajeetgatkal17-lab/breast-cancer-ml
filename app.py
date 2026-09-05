@@ -370,25 +370,7 @@ st.markdown(
 # HERO
 # =========================================================
 
-st.markdown(
-    """
-    <div class="hero">
 
-        <div class="hero-badge">
-            ✨ AI-POWERED MEDICAL PREDICTION
-        </div>
-
-        <h1>🩺 Breast Cancer Status Prediction</h1>
-
-        <p>
-            An interactive Machine Learning application for
-            predicting breast cancer patient status.
-        </p>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
 
 st.info(
