@@ -22,137 +22,325 @@ model = joblib.load("breast_cancer_model.pkl")
 
 
 # =========================================================
-# PREMIUM DESIGN
+# PREMIUM CSS + LIVE WALLPAPER
 # =========================================================
 
 st.markdown("""
 <style>
 
 /* =====================================================
-   BACKGROUND
+   MAIN BACKGROUND
    ===================================================== */
 
 .stApp {
     background:
         radial-gradient(
-            circle at 10% 20%,
-            rgba(0, 180, 255, 0.18),
+            circle at 20% 20%,
+            rgba(0, 170, 255, 0.13),
             transparent 30%
         ),
         radial-gradient(
-            circle at 90% 15%,
-            rgba(150, 70, 255, 0.18),
+            circle at 80% 20%,
+            rgba(130, 60, 255, 0.13),
             transparent 32%
-        ),
-        radial-gradient(
-            circle at 50% 90%,
-            rgba(0, 255, 190, 0.10),
-            transparent 30%
         ),
         #050914;
 }
 
 
 /* =====================================================
-   ANIMATED BACKGROUND GLOW
+   HIDE STREAMLIT DEFAULT ELEMENTS
    ===================================================== */
 
-.stApp::before {
-    content: "";
-    position: fixed;
-
-    width: 420px;
-    height: 420px;
-
-    left: -120px;
-    top: 15%;
-
-    border-radius: 50%;
-
-    background: rgba(0, 190, 255, 0.10);
-
-    filter: blur(90px);
-
-    animation: floatOne 9s ease-in-out infinite alternate;
-
-    pointer-events: none;
-
-    z-index: 0;
+#MainMenu {
+    visibility: hidden;
 }
 
-
-.stApp::after {
-    content: "";
-
-    position: fixed;
-
-    width: 500px;
-    height: 500px;
-
-    right: -150px;
-    bottom: 5%;
-
-    border-radius: 50%;
-
-    background: rgba(145, 70, 255, 0.12);
-
-    filter: blur(100px);
-
-    animation: floatTwo 11s ease-in-out infinite alternate;
-
-    pointer-events: none;
-
-    z-index: 0;
+footer {
+    visibility: hidden;
 }
 
-
-@keyframes floatOne {
-
-    from {
-        transform: translate(0px, 0px) scale(1);
-    }
-
-    to {
-        transform: translate(180px, 80px) scale(1.25);
-    }
-
-}
-
-
-@keyframes floatTwo {
-
-    from {
-        transform: translate(0px, 0px) scale(1);
-    }
-
-    to {
-        transform: translate(-160px, -100px) scale(1.3);
-    }
-
+header {
+    background: transparent !important;
 }
 
 
 /* =====================================================
-   MAIN CONTENT
+   CONTENT
    ===================================================== */
 
 .block-container {
     position: relative;
+    z-index: 10;
 
-    z-index: 2;
+    max-width: 1200px;
 
     padding-top: 2rem;
-    padding-bottom: 3rem;
-
-    max-width: 1250px;
+    padding-bottom: 4rem;
 }
 
 
 /* =====================================================
-   HERO CARD
+   LIVE WALLPAPER
+   ===================================================== */
+
+.live-wallpaper {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   GLOWING ORBS
+   ===================================================== */
+
+.orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(85px);
+
+    opacity: 0.32;
+}
+
+
+.orb-blue {
+
+    width: 380px;
+    height: 380px;
+
+    background: #00b7ff;
+
+    left: -120px;
+    top: 10%;
+
+    animation: blueMove 14s ease-in-out infinite alternate;
+}
+
+
+.orb-purple {
+
+    width: 430px;
+    height: 430px;
+
+    background: #7c3aed;
+
+    right: -150px;
+    top: 5%;
+
+    animation: purpleMove 17s ease-in-out infinite alternate;
+}
+
+
+.orb-cyan {
+
+    width: 320px;
+    height: 320px;
+
+    background: #00d9b6;
+
+    left: 40%;
+    bottom: -150px;
+
+    animation: cyanMove 13s ease-in-out infinite alternate;
+}
+
+
+@keyframes blueMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(280px, 120px) scale(1.25);
+    }
+
+    100% {
+        transform: translate(100px, 400px) scale(0.85);
+    }
+}
+
+
+@keyframes purpleMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-250px, 150px) scale(1.3);
+    }
+
+    100% {
+        transform: translate(-100px, 400px) scale(0.9);
+    }
+}
+
+
+@keyframes cyanMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-250px, -180px) scale(1.3);
+    }
+
+    100% {
+        transform: translate(250px, -100px) scale(0.8);
+    }
+}
+
+
+/* =====================================================
+   PARTICLES
+   ===================================================== */
+
+.particle {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(120, 220, 255, 0.65);
+
+    box-shadow:
+        0 0 10px rgba(120, 220, 255, 0.8);
+
+    animation: particleFloat 10s linear infinite;
+}
+
+
+.p1 {
+    left: 10%;
+    top: 80%;
+    animation-delay: 0s;
+}
+
+.p2 {
+    left: 20%;
+    top: 60%;
+    animation-delay: 2s;
+}
+
+.p3 {
+    left: 30%;
+    top: 90%;
+    animation-delay: 4s;
+}
+
+.p4 {
+    left: 40%;
+    top: 70%;
+    animation-delay: 1s;
+}
+
+.p5 {
+    left: 50%;
+    top: 85%;
+    animation-delay: 3s;
+}
+
+.p6 {
+    left: 60%;
+    top: 65%;
+    animation-delay: 5s;
+}
+
+.p7 {
+    left: 70%;
+    top: 80%;
+    animation-delay: 2s;
+}
+
+.p8 {
+    left: 80%;
+    top: 55%;
+    animation-delay: 6s;
+}
+
+.p9 {
+    left: 90%;
+    top: 75%;
+    animation-delay: 4s;
+}
+
+.p10 {
+    left: 15%;
+    top: 30%;
+    animation-delay: 5s;
+}
+
+.p11 {
+    left: 35%;
+    top: 25%;
+    animation-delay: 2s;
+}
+
+.p12 {
+    left: 55%;
+    top: 35%;
+    animation-delay: 7s;
+}
+
+.p13 {
+    left: 75%;
+    top: 25%;
+    animation-delay: 3s;
+}
+
+.p14 {
+    left: 85%;
+    top: 40%;
+    animation-delay: 6s;
+}
+
+
+@keyframes particleFloat {
+
+    0% {
+        transform: translateY(80px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-350px);
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   HERO
    ===================================================== */
 
 .hero {
+
     padding: 42px;
 
     border-radius: 28px;
@@ -160,16 +348,16 @@ st.markdown("""
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.13),
+            rgba(255,255,255,0.12),
             rgba(255,255,255,0.035)
         );
 
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.16);
 
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(22px);
 
     box-shadow:
-        0 25px 80px rgba(0,0,0,0.40),
+        0 25px 80px rgba(0,0,0,0.45),
         inset 0 1px 0 rgba(255,255,255,0.10);
 
     margin-bottom: 25px;
@@ -177,17 +365,16 @@ st.markdown("""
 
 
 .hero-badge {
+
     display: inline-block;
 
-    padding: 8px 15px;
-
-    margin-bottom: 16px;
+    padding: 8px 16px;
 
     border-radius: 30px;
 
     background: rgba(0,200,255,0.10);
 
-    border: 1px solid rgba(0,200,255,0.30);
+    border: 1px solid rgba(0,220,255,0.30);
 
     color: #67e8f9 !important;
 
@@ -196,21 +383,25 @@ st.markdown("""
     font-weight: 700;
 
     letter-spacing: 0.5px;
+
+    margin-bottom: 15px;
 }
 
 
 .hero h1 {
+
     color: #ffffff !important;
 
-    font-size: 42px;
+    font-size: 43px;
 
-    font-weight: 800;
+    font-weight: 850;
 
     margin: 0;
 }
 
 
 .hero p {
+
     color: #cbd5e1 !important;
 
     font-size: 17px;
@@ -220,28 +411,29 @@ st.markdown("""
 
 
 /* =====================================================
-   SECTION CARDS
+   SECTION HEADERS
    ===================================================== */
 
 .section {
+
     margin-top: 32px;
 
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 
-    padding: 16px 22px;
+    padding: 17px 22px;
 
-    border-radius: 17px;
+    border-radius: 18px;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,0.075),
+            rgba(255,255,255,0.08),
             rgba(255,255,255,0.025)
         );
 
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.11);
 
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(18px);
 
     color: #ffffff !important;
 
@@ -250,15 +442,16 @@ st.markdown("""
     font-weight: 750;
 
     box-shadow:
-        0 10px 35px rgba(0,0,0,0.20);
+        0 10px 35px rgba(0,0,0,0.22);
 }
 
 
 /* =====================================================
-   LABELS
+   INPUT LABELS
    ===================================================== */
 
 label {
+
     color: #e2e8f0 !important;
 
     font-weight: 600 !important;
@@ -266,7 +459,7 @@ label {
 
 
 /* =====================================================
-   NUMBER INPUT
+   INPUT BOX
    ===================================================== */
 
 div[data-baseweb="input"] {
@@ -281,10 +474,10 @@ div[data-baseweb="input"] {
 
 div[data-baseweb="input"]:focus-within {
 
-    border: 1px solid rgba(56,189,248,0.75) !important;
+    border: 1px solid rgba(56,189,248,0.70) !important;
 
     box-shadow:
-        0 0 20px rgba(56,189,248,0.16);
+        0 0 20px rgba(56,189,248,0.18);
 }
 
 
@@ -318,14 +511,6 @@ div[data-baseweb="select"] * {
    PREDICT BUTTON
    ===================================================== */
 
-div.stButton {
-
-    display: flex;
-
-    justify-content: center;
-}
-
-
 div.stButton > button {
 
     width: 100%;
@@ -351,7 +536,7 @@ div.stButton > button {
     font-weight: 800;
 
     box-shadow:
-        0 12px 40px rgba(37,99,235,0.30);
+        0 12px 40px rgba(37,99,235,0.32);
 
     transition: all 0.25s ease;
 }
@@ -362,39 +547,39 @@ div.stButton > button:hover {
     transform: translateY(-3px);
 
     box-shadow:
-        0 18px 50px rgba(37,99,235,0.45),
-        0 0 25px rgba(103,232,249,0.15);
+        0 18px 50px rgba(37,99,235,0.50),
+        0 0 30px rgba(103,232,249,0.20);
 }
 
 
 /* =====================================================
-   RESULT CARD
+   RESULT
    ===================================================== */
 
 .result {
 
-    margin-top: 28px;
+    margin-top: 30px;
 
-    padding: 35px;
+    padding: 38px;
 
-    border-radius: 24px;
+    border-radius: 25px;
 
     text-align: center;
 
     background:
         linear-gradient(
             135deg,
-            rgba(16,185,129,0.16),
+            rgba(16,185,129,0.17),
             rgba(255,255,255,0.045)
         );
 
-    border: 1px solid rgba(52,211,153,0.35);
+    border: 1px solid rgba(52,211,153,0.38);
 
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(22px);
 
     box-shadow:
         0 20px 60px rgba(0,0,0,0.35),
-        0 0 35px rgba(52,211,153,0.08);
+        0 0 40px rgba(52,211,153,0.08);
 }
 
 
@@ -402,9 +587,9 @@ div.stButton > button:hover {
 
     color: #cbd5e1 !important;
 
-    font-size: 19px;
+    font-size: 20px;
 
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 
@@ -412,7 +597,7 @@ div.stButton > button:hover {
 
     color: #6ee7b7 !important;
 
-    font-size: 40px;
+    font-size: 43px;
 
     font-weight: 850;
 
@@ -434,11 +619,11 @@ div.stButton > button:hover {
 
 .footer {
 
-    margin-top: 50px;
+    margin-top: 55px;
 
     padding: 25px;
 
-    border-radius: 18px;
+    border-radius: 20px;
 
     text-align: center;
 
@@ -465,33 +650,55 @@ div.stButton > button:hover {
 @media (max-width: 768px) {
 
     .hero {
-
         padding: 28px 22px;
-
     }
 
     .hero h1 {
-
         font-size: 30px;
-
     }
 
     .hero p {
-
         font-size: 15px;
-
     }
 
     .section {
-
         font-size: 19px;
-
     }
 
 }
 
 </style>
 """, unsafe_allow_html=True)
+
+
+# =========================================================
+# LIVE BACKGROUND
+# =========================================================
+
+st.html("""
+<div class="live-wallpaper">
+
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
+
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+    <div class="particle p7"></div>
+    <div class="particle p8"></div>
+    <div class="particle p9"></div>
+    <div class="particle p10"></div>
+    <div class="particle p11"></div>
+    <div class="particle p12"></div>
+    <div class="particle p13"></div>
+    <div class="particle p14"></div>
+
+</div>
+""")
 
 
 # =========================================================
@@ -519,7 +726,7 @@ st.html("""
 
 
 # =========================================================
-# INFORMATION MESSAGE
+# INFO
 # =========================================================
 
 st.info(
@@ -747,63 +954,61 @@ with col3:
 
 
 # =========================================================
-# INPUT DATAFRAME
+# INPUT DATA
 # =========================================================
 
-input_data = pd.DataFrame(
-    {
-        "Age": [age],
+input_data = pd.DataFrame({
 
-        "Race": [race],
+    "Age": [age],
 
-        "Marital Status": [marital_status],
+    "Race": [race],
 
-        "T Stage ": [t_stage],
+    "Marital Status": [marital_status],
 
-        "N Stage": [n_stage],
+    "T Stage ": [t_stage],
 
-        "6th Stage": [sixth_stage],
+    "N Stage": [n_stage],
 
-        "differentiate": [differentiate],
+    "6th Stage": [sixth_stage],
 
-        "Grade": [grade],
+    "differentiate": [differentiate],
 
-        "A Stage": [a_stage],
+    "Grade": [grade],
 
-        "Tumor Size": [tumor_size],
+    "A Stage": [a_stage],
 
-        "Estrogen Status": [estrogen_status],
+    "Tumor Size": [tumor_size],
 
-        "Progesterone Status": [progesterone_status],
+    "Estrogen Status": [estrogen_status],
 
-        "Regional Node Examined": [
-            regional_node_examined
-        ],
+    "Progesterone Status": [progesterone_status],
 
-        "Reginol Node Positive": [
-            regional_node_positive
-        ],
+    "Regional Node Examined": [
+        regional_node_examined
+    ],
 
-        "Survival Months": [
-            survival_months
-        ]
-    }
-)
+    "Reginol Node Positive": [
+        regional_node_positive
+    ],
+
+    "Survival Months": [
+        survival_months
+    ]
+
+})
 
 
 # =========================================================
-# PREDICT BUTTON
+# PREDICT
 # =========================================================
 
 st.markdown("---")
 
 
-button_col1, button_col2, button_col3 = st.columns(
-    [1, 2, 1]
-)
+col1, col2, col3 = st.columns([1, 2, 1])
 
 
-with button_col2:
+with col2:
 
     predict_clicked = st.button(
         "🔍 Predict Breast Cancer Status"
@@ -811,7 +1016,7 @@ with button_col2:
 
 
 # =========================================================
-# PREDICTION RESULT
+# RESULT
 # =========================================================
 
 if predict_clicked:
