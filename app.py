@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+
 # =========================================================
 # PAGE CONFIG
 # =========================================================
@@ -12,242 +13,754 @@ st.set_page_config(
     layout="wide"
 )
 
+
 # =========================================================
 # LOAD MODEL
 # =========================================================
 
 model = joblib.load("breast_cancer_model.pkl")
 
+
 # =========================================================
-# SIMPLE PREMIUM CSS
+# PREMIUM CSS + LIVE WALLPAPER
 # =========================================================
 
 st.markdown("""
 <style>
 
+/* =====================================================
+   MAIN BACKGROUND
+   ===================================================== */
+
 .stApp {
-    background: #020617;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 170, 255, 0.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(130, 60, 255, 0.13),
+            transparent 32%
+        ),
+        #050914;
 }
+
+
+/* =====================================================
+   HIDE STREAMLIT DEFAULT ELEMENTS
+   ===================================================== */
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    background: transparent !important;
+}
+
+
+/* =====================================================
+   CONTENT
+   ===================================================== */
 
 .block-container {
-    max-width: 1150px;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+
+    max-width: 1200px;
+
+    padding-top: 2rem;
+    padding-bottom: 4rem;
 }
 
-/* Hero */
+
+/* =====================================================
+   LIVE WALLPAPER
+   ===================================================== */
+
+.live-wallpaper {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =====================================================
+   GLOWING ORBS
+   ===================================================== */
+
+.orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(85px);
+
+    opacity: 0.32;
+}
+
+
+.orb-blue {
+
+    width: 380px;
+    height: 380px;
+
+    background: #00b7ff;
+
+    left: -120px;
+    top: 10%;
+
+    animation: blueMove 14s ease-in-out infinite alternate;
+}
+
+
+.orb-purple {
+
+    width: 430px;
+    height: 430px;
+
+    background: #7c3aed;
+
+    right: -150px;
+    top: 5%;
+
+    animation: purpleMove 17s ease-in-out infinite alternate;
+}
+
+
+.orb-cyan {
+
+    width: 320px;
+    height: 320px;
+
+    background: #00d9b6;
+
+    left: 40%;
+    bottom: -150px;
+
+    animation: cyanMove 13s ease-in-out infinite alternate;
+}
+
+
+@keyframes blueMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(280px, 120px) scale(1.25);
+    }
+
+    100% {
+        transform: translate(100px, 400px) scale(0.85);
+    }
+}
+
+
+@keyframes purpleMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-250px, 150px) scale(1.3);
+    }
+
+    100% {
+        transform: translate(-100px, 400px) scale(0.9);
+    }
+}
+
+
+@keyframes cyanMove {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-250px, -180px) scale(1.3);
+    }
+
+    100% {
+        transform: translate(250px, -100px) scale(0.8);
+    }
+}
+
+
+/* =====================================================
+   PARTICLES
+   ===================================================== */
+
+.particle {
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(120, 220, 255, 0.65);
+
+    box-shadow:
+        0 0 10px rgba(120, 220, 255, 0.8);
+
+    animation: particleFloat 10s linear infinite;
+}
+
+
+.p1 {
+    left: 10%;
+    top: 80%;
+    animation-delay: 0s;
+}
+
+.p2 {
+    left: 20%;
+    top: 60%;
+    animation-delay: 2s;
+}
+
+.p3 {
+    left: 30%;
+    top: 90%;
+    animation-delay: 4s;
+}
+
+.p4 {
+    left: 40%;
+    top: 70%;
+    animation-delay: 1s;
+}
+
+.p5 {
+    left: 50%;
+    top: 85%;
+    animation-delay: 3s;
+}
+
+.p6 {
+    left: 60%;
+    top: 65%;
+    animation-delay: 5s;
+}
+
+.p7 {
+    left: 70%;
+    top: 80%;
+    animation-delay: 2s;
+}
+
+.p8 {
+    left: 80%;
+    top: 55%;
+    animation-delay: 6s;
+}
+
+.p9 {
+    left: 90%;
+    top: 75%;
+    animation-delay: 4s;
+}
+
+.p10 {
+    left: 15%;
+    top: 30%;
+    animation-delay: 5s;
+}
+
+.p11 {
+    left: 35%;
+    top: 25%;
+    animation-delay: 2s;
+}
+
+.p12 {
+    left: 55%;
+    top: 35%;
+    animation-delay: 7s;
+}
+
+.p13 {
+    left: 75%;
+    top: 25%;
+    animation-delay: 3s;
+}
+
+.p14 {
+    left: 85%;
+    top: 40%;
+    animation-delay: 6s;
+}
+
+
+@keyframes particleFloat {
+
+    0% {
+        transform: translateY(80px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-350px);
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   HERO
+   ===================================================== */
 
 .hero {
-    text-align: center;
-    padding: 45px 20px;
-    margin-bottom: 35px;
-    border-radius: 25px;
-    background: linear-gradient(
-        135deg,
-        rgba(15,23,42,0.95),
-        rgba(30,41,59,0.85)
-    );
-    border: 1px solid rgba(96,165,250,0.20);
+
+    padding: 42px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.12),
+            rgba(255,255,255,0.035)
+        );
+
+    border: 1px solid rgba(255,255,255,0.16);
+
+    backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+
+    margin-bottom: 25px;
 }
 
-.badge {
+
+.hero-badge {
+
     display: inline-block;
-    padding: 7px 16px;
-    border-radius: 20px;
-    background: rgba(34,211,238,0.10);
-    color: #67e8f9;
-    font-size: 12px;
+
+    padding: 8px 16px;
+
+    border-radius: 30px;
+
+    background: rgba(0,200,255,0.10);
+
+    border: 1px solid rgba(0,220,255,0.30);
+
+    color: #67e8f9 !important;
+
+    font-size: 13px;
+
     font-weight: 700;
-    letter-spacing: 1px;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 15px;
 }
 
-.hero-title {
-    font-size: 42px;
-    font-weight: 800;
-    margin-top: 18px;
-    color: #e2e8f0;
+
+.hero h1 {
+
+    color: #ffffff !important;
+
+    font-size: 43px;
+
+    font-weight: 850;
+
+    margin: 0;
 }
 
-.hero-text {
-    color: #94a3b8;
-    font-size: 16px;
-    max-width: 700px;
-    margin: auto;
-    line-height: 1.6;
+
+.hero p {
+
+    color: #cbd5e1 !important;
+
+    font-size: 17px;
+
+    margin-top: 12px;
 }
 
-/* Section */
+
+/* =====================================================
+   SECTION HEADERS
+   ===================================================== */
 
 .section {
-    padding: 22px;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    border-radius: 20px;
-    background: rgba(15,23,42,0.85);
-    border: 1px solid rgba(148,163,184,0.12);
-}
 
-.section-title {
-    color: #e2e8f0;
+    margin-top: 32px;
+
+    margin-bottom: 20px;
+
+    padding: 17px 22px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.08),
+            rgba(255,255,255,0.025)
+        );
+
+    border: 1px solid rgba(255,255,255,0.11);
+
+    backdrop-filter: blur(18px);
+
+    color: #ffffff !important;
+
     font-size: 21px;
-    font-weight: 700;
+
+    font-weight: 750;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.22);
 }
 
-.section-text {
-    color: #64748b;
-    font-size: 13px;
-    margin-top: 5px;
+
+/* =====================================================
+   INPUT LABELS
+   ===================================================== */
+
+label {
+
+    color: #e2e8f0 !important;
+
+    font-weight: 600 !important;
 }
 
-/* Button */
 
-.stButton > button {
+/* =====================================================
+   INPUT BOX
+   ===================================================== */
+
+div[data-baseweb="input"] {
+
+    background: rgba(255,255,255,0.065) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 12px !important;
+}
+
+
+div[data-baseweb="input"]:focus-within {
+
+    border: 1px solid rgba(56,189,248,0.70) !important;
+
+    box-shadow:
+        0 0 20px rgba(56,189,248,0.18);
+}
+
+
+div[data-baseweb="input"] input {
+
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   SELECT BOX
+   ===================================================== */
+
+div[data-baseweb="select"] > div {
+
+    background: rgba(255,255,255,0.065) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 12px !important;
+}
+
+
+div[data-baseweb="select"] * {
+
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   PREDICT BUTTON
+   ===================================================== */
+
+div.stButton > button {
+
     width: 100%;
-    height: 55px;
-    border-radius: 15px;
-    border: none;
-    background: linear-gradient(
-        90deg,
-        #2563eb,
-        #7c3aed
-    );
-    color: white;
-    font-size: 17px;
-    font-weight: 700;
+
+    height: 60px;
+
+    border-radius: 17px;
+
+    border: 1px solid rgba(103,232,249,0.40);
+
+    background:
+        linear-gradient(
+            135deg,
+            #0891b2,
+            #2563eb,
+            #7c3aed
+        );
+
+    color: #ffffff !important;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 40px rgba(37,99,235,0.32);
+
+    transition: all 0.25s ease;
 }
 
-.stButton > button:hover {
-    background: linear-gradient(
-        90deg,
-        #1d4ed8,
-        #6d28d9
-    );
+
+div.stButton > button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 50px rgba(37,99,235,0.50),
+        0 0 30px rgba(103,232,249,0.20);
 }
 
-/* Result */
+
+/* =====================================================
+   RESULT
+   ===================================================== */
 
 .result {
-    text-align: center;
-    padding: 30px;
+
     margin-top: 30px;
-    border-radius: 22px;
-    background: rgba(14,116,144,0.12);
-    border: 1px solid rgba(34,211,238,0.25);
+
+    padding: 38px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(16,185,129,0.17),
+            rgba(255,255,255,0.045)
+        );
+
+    border: 1px solid rgba(52,211,153,0.38);
+
+    backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35),
+        0 0 40px rgba(52,211,153,0.08);
 }
 
-.result-title {
-    color: #94a3b8;
+
+.result h2 {
+
+    color: #cbd5e1 !important;
+
+    font-size: 20px;
+
+    margin-bottom: 8px;
+}
+
+
+.result h1 {
+
+    color: #6ee7b7 !important;
+
+    font-size: 43px;
+
+    font-weight: 850;
+
+    margin: 5px 0 10px 0;
+}
+
+
+.result p {
+
+    color: #94a3b8 !important;
+
     font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
 }
 
-.result-value {
-    color: #67e8f9;
-    font-size: 35px;
-    font-weight: 800;
-}
 
-/* Footer */
+/* =====================================================
+   FOOTER
+   ===================================================== */
 
 .footer {
+
+    margin-top: 55px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
     text-align: center;
-    margin-top: 60px;
-    padding: 30px;
-    border-top: 1px solid rgba(148,163,184,0.12);
-}
 
-.footer-name {
-    color: #e2e8f0;
-    font-size: 22px;
-    font-weight: 700;
-}
+    background: rgba(255,255,255,0.035);
 
-.footer-name span {
-    color: #67e8f9;
-}
+    border: 1px solid rgba(255,255,255,0.07);
 
-.footer-role {
-    color: #94a3b8;
-    margin-top: 8px;
-    font-size: 15px;
-}
-
-.footer-tech {
     color: #64748b;
-    margin-top: 12px;
+
     font-size: 13px;
 }
 
-.footer-line {
-    width: 70px;
-    height: 2px;
-    background: #38bdf8;
-    margin: 18px auto;
+
+.footer strong {
+
+    color: #cbd5e1;
 }
 
-.footer-disclaimer {
-    color: #64748b;
-    font-size: 12px;
-    line-height: 1.7;
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        padding: 28px 22px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .section {
+        font-size: 19px;
+    }
+
 }
 
 </style>
 """, unsafe_allow_html=True)
 
+
+# =========================================================
+# LIVE BACKGROUND
+# =========================================================
+
+st.html("""
+<div class="live-wallpaper">
+
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
+
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+    <div class="particle p7"></div>
+    <div class="particle p8"></div>
+    <div class="particle p9"></div>
+    <div class="particle p10"></div>
+    <div class="particle p11"></div>
+    <div class="particle p12"></div>
+    <div class="particle p13"></div>
+    <div class="particle p14"></div>
+
+</div>
+""")
+
+
 # =========================================================
 # HERO
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="hero">
 
-    <div class="badge">
+    <div class="hero-badge">
         ✨ AI-POWERED MEDICAL PREDICTION
     </div>
 
-    <div class="hero-title">
+    <h1>
         🩺 Breast Cancer Status Prediction
-    </div>
+    </h1>
 
-    <div class="hero-text">
+    <p>
         An interactive Machine Learning application for
-        predicting breast cancer patient status using
-        clinical and tumor-related information.
-    </div>
+        predicting breast cancer patient status.
+    </p>
 
 </div>
-""", unsafe_allow_html=True)
+""")
+
+
+# =========================================================
+# INFO
+# =========================================================
+
+st.info(
+    "Enter the patient information below and click "
+    "**Predict Breast Cancer Status**."
+)
+
 
 # =========================================================
 # PATIENT INFORMATION
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section">
-
-    <div class="section-title">
-        👤 Patient Information
-    </div>
-
-    <div class="section-text">
-        Enter basic patient demographic information.
-    </div>
-
+    👤 Patient Information
 </div>
-""", unsafe_allow_html=True)
+""")
+
 
 col1, col2, col3 = st.columns(3)
 
+
 with col1:
+
     age = st.number_input(
         "Age",
-        min_value=1,
-        max_value=120,
+        min_value=0,
+        max_value=100,
         value=50
     )
 
+
 with col2:
+
     race = st.selectbox(
         "Race",
         [
@@ -257,39 +770,46 @@ with col2:
         ]
     )
 
+
 with col3:
+
     marital_status = st.selectbox(
         "Marital Status",
         [
             "Married",
-            "Divorced",
             "Single ",
+            "Divorced",
             "Widowed",
             "Separated"
         ]
     )
 
+
 # =========================================================
 # TUMOR INFORMATION
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="section">
-
-    <div class="section-title">
-        🧬 Tumor Information
-    </div>
-
-    <div class="section-text">
-        Enter tumor characteristics and cancer stage information.
-    </div>
-
+    🔬 Tumor Information
 </div>
-""", unsafe_allow_html=True)
+""")
+
 
 col1, col2, col3 = st.columns(3)
 
+
 with col1:
+
+    tumor_size = st.number_input(
+        "Tumor Size",
+        min_value=0,
+        value=20
+    )
+
+
+with col2:
+
     t_stage = st.selectbox(
         "T Stage",
         [
@@ -300,7 +820,9 @@ with col1:
         ]
     )
 
-with col2:
+
+with col3:
+
     n_stage = st.selectbox(
         "N Stage",
         [
@@ -310,21 +832,26 @@ with col2:
         ]
     )
 
-with col3:
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+
     sixth_stage = st.selectbox(
         "6th Stage",
         [
             "IIA",
-            "IIIA",
-            "IIIC",
             "IIB",
-            "IIIB"
+            "IIIA",
+            "IIIB",
+            "IIIC"
         ]
     )
 
-col1, col2, col3 = st.columns(3)
 
-with col1:
+with col2:
+
     differentiate = st.selectbox(
         "Differentiation",
         [
@@ -335,18 +862,36 @@ with col1:
         ]
     )
 
-with col2:
+
+with col3:
+
     grade = st.selectbox(
         "Grade",
         [
-            "3",
-            "2",
             "1",
+            "2",
+            "3",
             " anaplastic; Grade IV"
         ]
     )
 
-with col3:
+
+# =========================================================
+# CLINICAL INFORMATION
+# =========================================================
+
+st.html("""
+<div class="section">
+    🏥 Clinical Information
+</div>
+""")
+
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+
     a_stage = st.selectbox(
         "A Stage",
         [
@@ -355,45 +900,9 @@ with col3:
         ]
     )
 
-col1, col2 = st.columns(2)
-
-with col1:
-    tumor_size = st.number_input(
-        "Tumor Size",
-        min_value=1,
-        max_value=200,
-        value=20
-    )
 
 with col2:
-    survival_months = st.number_input(
-        "Survival Months",
-        min_value=0,
-        max_value=500,
-        value=50
-    )
 
-# =========================================================
-# CLINICAL INFORMATION
-# =========================================================
-
-st.markdown("""
-<div class="section">
-
-    <div class="section-title">
-        🧪 Clinical Information
-    </div>
-
-    <div class="section-text">
-        Enter clinical and lymph node information.
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
     estrogen_status = st.selectbox(
         "Estrogen Status",
         [
@@ -402,7 +911,9 @@ with col1:
         ]
     )
 
-with col2:
+
+with col3:
+
     progesterone_status = st.selectbox(
         "Progesterone Status",
         [
@@ -411,23 +922,36 @@ with col2:
         ]
     )
 
-with col3:
+
+col1, col2, col3 = st.columns(3)
+
+
+with col1:
+
     regional_node_examined = st.number_input(
         "Regional Node Examined",
         min_value=0,
-        max_value=100,
         value=10
     )
 
-col1, col2 = st.columns(2)
 
-with col1:
+with col2:
+
     regional_node_positive = st.number_input(
         "Regional Node Positive",
         min_value=0,
-        max_value=100,
         value=2
     )
+
+
+with col3:
+
+    survival_months = st.number_input(
+        "Survival Months",
+        min_value=0,
+        value=50
+    )
+
 
 # =========================================================
 # INPUT DATA
@@ -473,15 +997,23 @@ input_data = pd.DataFrame({
 
 })
 
+
 # =========================================================
 # PREDICT
 # =========================================================
 
-st.write("")
+st.markdown("---")
 
-predict_clicked = st.button(
-    "🔮  PREDICT PATIENT STATUS"
-)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+
+
+with col2:
+
+    predict_clicked = st.button(
+        "🔍 Predict Breast Cancer Status"
+    )
+
 
 # =========================================================
 # RESULT
@@ -489,59 +1021,54 @@ predict_clicked = st.button(
 
 if predict_clicked:
 
-    try:
+    prediction = model.predict(input_data)
 
-        prediction = model.predict(input_data)
+    result = prediction[0]
 
-        result = prediction[0]
+    st.html(f"""
+    <div class="result">
 
-        st.markdown(f"""
-        <div class="result">
+        <h2>
+            Prediction Result
+        </h2>
 
-            <div class="result-title">
-                Prediction Result
-            </div>
+        <h1>
+            🩺 {result}
+        </h1>
 
-            <div class="result-value">
-                🩺 {result}
-            </div>
+        <p>
+            Result generated by the trained
+            Machine Learning model.
+        </p>
 
-        </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """)
 
-    except Exception as e:
-
-        st.error(
-            f"Prediction error: {e}"
-        )
 
 # =========================================================
 # FOOTER
 # =========================================================
 
-st.markdown("""
+st.html("""
 <div class="footer">
 
-    <div class="footer-name">
-        ✨ Made by
-        <span>Vishwajeet Gatkal</span>
-    </div>
+    <strong>
+        🩺 Breast Cancer AI Prediction
+    </strong>
 
-    <div class="footer-role">
-        AI & DS Engineer • Machine Learning Enthusiast
-    </div>
+    <br><br>
 
-    <div class="footer-tech">
-        Python • Machine Learning • Scikit-learn • Streamlit
-    </div>
+    Built with Python • Scikit-learn • Streamlit
 
-    <div class="footer-line"></div>
+    <br><br>
 
-    <div class="footer-disclaimer">
-        🩺 Educational AI/ML Project
-        <br>
-        ⚠️ Not intended for professional medical diagnosis.
-    </div>
+    ⚠️ This application is for educational and
+    demonstration purposes only.
+
+    <br>
+
+    It is not a substitute for professional
+    medical diagnosis.
 
 </div>
-""", unsafe_allow_html=True)
+""")
