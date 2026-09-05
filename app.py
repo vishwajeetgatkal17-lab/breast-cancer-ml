@@ -19,15 +19,13 @@ st.set_page_config(
 model = joblib.load("breast_cancer_model.pkl")
 
 # =========================================================
-# PREMIUM CSS
+# CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-/* =====================================================
-   MAIN APP
-   ===================================================== */
+/* ================= MAIN APP ================= */
 
 .stApp {
     background:
@@ -38,33 +36,27 @@ st.markdown("""
     color: #e2e8f0;
 }
 
-/* Remove top spacing */
-
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
     max-width: 1200px;
 }
 
-/* =====================================================
-   LIVE WALLPAPER
-   ===================================================== */
+/* ================= LIVE WALLPAPER ================= */
 
 .live-wallpaper {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 0;
     overflow: hidden;
     pointer-events: none;
 }
-
-/* Glowing orbs */
 
 .orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.25;
+    opacity: 0.20;
     animation: floatOrb 14s infinite alternate ease-in-out;
 }
 
@@ -110,9 +102,7 @@ st.markdown("""
 
 }
 
-/* =====================================================
-   PARTICLES
-   ===================================================== */
+/* ================= PARTICLES ================= */
 
 .particle {
     position: absolute;
@@ -161,16 +151,17 @@ st.markdown("""
 .p13 { left: 94%; animation-duration: 15s; animation-delay: 4s; }
 .p14 { left: 48%; animation-duration: 12s; animation-delay: 7s; }
 
-/* =====================================================
-   HERO
-   ===================================================== */
+/* ================= HERO ================= */
 
 .hero {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
     padding: 50px 25px;
     margin-bottom: 35px;
 
-    background: rgba(15,23,42,0.62);
+    background: rgba(15,23,42,0.72);
 
     border: 1px solid rgba(148,163,184,0.15);
 
@@ -179,8 +170,7 @@ st.markdown("""
     backdrop-filter: blur(18px);
 
     box-shadow:
-        0 25px 70px rgba(0,0,0,0.35),
-        inset 0 1px rgba(255,255,255,0.04);
+        0 25px 70px rgba(0,0,0,0.35);
 }
 
 .hero-badge {
@@ -242,13 +232,14 @@ st.markdown("""
 
 }
 
-/* =====================================================
-   SECTION CARDS
-   ===================================================== */
+/* ================= SECTION ================= */
 
 .section {
 
-    background: rgba(15,23,42,0.65);
+    position: relative;
+    z-index: 2;
+
+    background: rgba(15,23,42,0.72);
 
     border: 1px solid rgba(148,163,184,0.12);
 
@@ -256,7 +247,7 @@ st.markdown("""
 
     padding: 25px;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     backdrop-filter: blur(16px);
 
@@ -273,8 +264,6 @@ st.markdown("""
 
     font-weight: 700;
 
-    margin-bottom: 5px;
-
 }
 
 .section-subtitle {
@@ -283,13 +272,11 @@ st.markdown("""
 
     font-size: 13px;
 
-    margin-bottom: 20px;
+    margin-top: 5px;
 
 }
 
-/* =====================================================
-   INPUTS
-   ===================================================== */
+/* ================= INPUTS ================= */
 
 label {
 
@@ -299,26 +286,24 @@ label {
 
 }
 
-.stSelectbox > div > div,
-.stNumberInput > div > div > input {
+.stSelectbox,
+.stNumberInput {
 
-    background: rgba(15,23,42,0.75) !important;
-
-    color: #e2e8f0 !important;
-
-    border-radius: 12px !important;
+    position: relative;
+    z-index: 3;
 
 }
 
-.stNumberInput input {
+/* ================= BUTTON ================= */
 
-    color: #e2e8f0 !important;
+.stButton {
+
+    position: relative;
+    z-index: 3;
+
+    margin-top: 20px;
 
 }
-
-/* =====================================================
-   BUTTON
-   ===================================================== */
 
 .stButton > button {
 
@@ -361,11 +346,12 @@ label {
 
 }
 
-/* =====================================================
-   RESULT
-   ===================================================== */
+/* ================= RESULT ================= */
 
 .result {
+
+    position: relative;
+    z-index: 3;
 
     text-align: center;
 
@@ -417,11 +403,12 @@ label {
 
 }
 
-/* =====================================================
-   FOOTER
-   ===================================================== */
+/* ================= FOOTER ================= */
 
 .footer {
+
+    position: relative;
+    z-index: 2;
 
     text-align: center;
 
@@ -431,7 +418,7 @@ label {
 
     border-top: 1px solid rgba(148,163,184,0.10);
 
-    background: rgba(2,6,23,0.35);
+    background: rgba(2,6,23,0.55);
 
     border-radius: 20px;
 
@@ -502,13 +489,13 @@ label {
 }
 
 </style>
-""")
+""", unsafe_allow_html=True)
 
 # =========================================================
-# LIVE WALLPAPER HTML
+# LIVE WALLPAPER
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="live-wallpaper">
 
     <div class="orb orb-blue"></div>
@@ -531,13 +518,13 @@ st.html("""
     <div class="particle p14"></div>
 
 </div>
-""")
+""", unsafe_allow_html=True)
 
 # =========================================================
 # HERO
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="hero">
 
     <div class="hero-badge">
@@ -555,13 +542,13 @@ st.html("""
     </p>
 
 </div>
-""")
+""", unsafe_allow_html=True)
 
 # =========================================================
 # PATIENT INFORMATION
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="section">
 
     <div class="section-title">
@@ -573,12 +560,11 @@ st.html("""
     </div>
 
 </div>
-""")
+""", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-
     age = st.number_input(
         "Age",
         min_value=1,
@@ -587,7 +573,6 @@ with col1:
     )
 
 with col2:
-
     race = st.selectbox(
         "Race",
         [
@@ -598,7 +583,6 @@ with col2:
     )
 
 with col3:
-
     marital_status = st.selectbox(
         "Marital Status",
         [
@@ -614,7 +598,7 @@ with col3:
 # TUMOR INFORMATION
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="section">
 
     <div class="section-title">
@@ -626,12 +610,11 @@ st.html("""
     </div>
 
 </div>
-""")
+""", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-
     t_stage = st.selectbox(
         "T Stage",
         [
@@ -643,7 +626,6 @@ with col1:
     )
 
 with col2:
-
     n_stage = st.selectbox(
         "N Stage",
         [
@@ -654,7 +636,6 @@ with col2:
     )
 
 with col3:
-
     sixth_stage = st.selectbox(
         "6th Stage",
         [
@@ -669,7 +650,6 @@ with col3:
 col1, col2, col3 = st.columns(3)
 
 with col1:
-
     differentiate = st.selectbox(
         "Differentiation",
         [
@@ -681,7 +661,6 @@ with col1:
     )
 
 with col2:
-
     grade = st.selectbox(
         "Grade",
         [
@@ -693,7 +672,6 @@ with col2:
     )
 
 with col3:
-
     a_stage = st.selectbox(
         "A Stage",
         [
@@ -705,7 +683,6 @@ with col3:
 col1, col2 = st.columns(2)
 
 with col1:
-
     tumor_size = st.number_input(
         "Tumor Size",
         min_value=1,
@@ -714,7 +691,6 @@ with col1:
     )
 
 with col2:
-
     survival_months = st.number_input(
         "Survival Months",
         min_value=0,
@@ -726,7 +702,7 @@ with col2:
 # CLINICAL INFORMATION
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="section">
 
     <div class="section-title">
@@ -738,12 +714,11 @@ st.html("""
     </div>
 
 </div>
-""")
+""", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-
     estrogen_status = st.selectbox(
         "Estrogen Status",
         [
@@ -753,7 +728,6 @@ with col1:
     )
 
 with col2:
-
     progesterone_status = st.selectbox(
         "Progesterone Status",
         [
@@ -763,7 +737,6 @@ with col2:
     )
 
 with col3:
-
     regional_node_examined = st.number_input(
         "Regional Node Examined",
         min_value=0,
@@ -774,7 +747,6 @@ with col3:
 col1, col2 = st.columns(2)
 
 with col1:
-
     regional_node_positive = st.number_input(
         "Regional Node Positive",
         min_value=0,
@@ -830,8 +802,6 @@ input_data = pd.DataFrame({
 # PREDICT BUTTON
 # =========================================================
 
-st.write("")
-
 predict_clicked = st.button(
     "🔮  PREDICT PATIENT STATUS"
 )
@@ -848,7 +818,7 @@ if predict_clicked:
 
         result = prediction[0]
 
-        st.html(f"""
+        st.markdown(f"""
         <div class="result">
 
             <h2>
@@ -865,7 +835,7 @@ if predict_clicked:
             </p>
 
         </div>
-        """)
+        """, unsafe_allow_html=True)
 
     except Exception as e:
 
@@ -877,7 +847,7 @@ if predict_clicked:
 # FOOTER
 # =========================================================
 
-st.html("""
+st.markdown("""
 <div class="footer">
 
     <div class="footer-name">
@@ -909,4 +879,4 @@ st.html("""
     </div>
 
 </div>
-""")
+""", unsafe_allow_html=True)
