@@ -103,7 +103,7 @@ input_data = pd.DataFrame({
     "Age": [age],
     "Race": [race],
     "Marital Status": [marital_status],
-    "T Stage": [t_stage],
+    "T Stage ": [t_stage],
     "N Stage": [n_stage],
     "6th Stage": [sixth_stage],
     "differentiate": [differentiate],
