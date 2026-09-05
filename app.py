@@ -22,356 +22,505 @@ model = joblib.load("breast_cancer_model.pkl")
 
 
 # =========================================================
-# CUSTOM CSS
+# PREMIUM DESIGN
 # =========================================================
 
-st.markdown(
-    """
-    <style>
+st.markdown("""
+<style>
 
-    /* ===== MAIN BACKGROUND ===== */
+/* =====================================================
+   BACKGROUND
+   ===================================================== */
 
-    .stApp {
-        background:
-            radial-gradient(
-                circle at 10% 20%,
-                rgba(0, 180, 255, 0.15),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 90% 15%,
-                rgba(150, 80, 255, 0.16),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 50% 90%,
-                rgba(0, 255, 190, 0.10),
-                transparent 30%
-            ),
-            #050914;
+.stApp {
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(0, 180, 255, 0.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(150, 70, 255, 0.18),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(0, 255, 190, 0.10),
+            transparent 30%
+        ),
+        #050914;
+}
+
+
+/* =====================================================
+   ANIMATED BACKGROUND GLOW
+   ===================================================== */
+
+.stApp::before {
+    content: "";
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    left: -120px;
+    top: 15%;
+
+    border-radius: 50%;
+
+    background: rgba(0, 190, 255, 0.10);
+
+    filter: blur(90px);
+
+    animation: floatOne 9s ease-in-out infinite alternate;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+.stApp::after {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    right: -150px;
+    bottom: 5%;
+
+    border-radius: 50%;
+
+    background: rgba(145, 70, 255, 0.12);
+
+    filter: blur(100px);
+
+    animation: floatTwo 11s ease-in-out infinite alternate;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+@keyframes floatOne {
+
+    from {
+        transform: translate(0px, 0px) scale(1);
     }
 
-
-    /* ===== ANIMATED GLOW ===== */
-
-    .stApp::before {
-        content: "";
-        position: fixed;
-        width: 420px;
-        height: 420px;
-        left: -120px;
-        top: 15%;
-        border-radius: 50%;
-        background: rgba(0, 183, 255, 0.10);
-        filter: blur(90px);
-        animation: floatOne 9s ease-in-out infinite alternate;
-        pointer-events: none;
-        z-index: 0;
+    to {
+        transform: translate(180px, 80px) scale(1.25);
     }
 
+}
 
-    .stApp::after {
-        content: "";
-        position: fixed;
-        width: 500px;
-        height: 500px;
-        right: -150px;
-        bottom: 5%;
-        border-radius: 50%;
-        background: rgba(143, 77, 255, 0.11);
-        filter: blur(100px);
-        animation: floatTwo 11s ease-in-out infinite alternate;
-        pointer-events: none;
-        z-index: 0;
+
+@keyframes floatTwo {
+
+    from {
+        transform: translate(0px, 0px) scale(1);
     }
 
-
-    @keyframes floatOne {
-
-        from {
-            transform: translate(0px, 0px) scale(1);
-        }
-
-        to {
-            transform: translate(180px, 80px) scale(1.25);
-        }
-
+    to {
+        transform: translate(-160px, -100px) scale(1.3);
     }
 
-
-    @keyframes floatTwo {
-
-        from {
-            transform: translate(0px, 0px) scale(1);
-        }
-
-        to {
-            transform: translate(-160px, -100px) scale(1.3);
-        }
-
-    }
+}
 
 
-    /* ===== CONTENT ===== */
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
 
-    .block-container {
-        position: relative;
-        z-index: 2;
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-        max-width: 1250px;
-    }
+.block-container {
+    position: relative;
+
+    z-index: 2;
+
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+
+    max-width: 1250px;
+}
 
 
-    /* ===== HERO ===== */
+/* =====================================================
+   HERO CARD
+   ===================================================== */
 
-    .hero {
-        padding: 38px 42px;
-        border-radius: 26px;
-        background: linear-gradient(
+.hero {
+    padding: 42px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.12),
-            rgba(255, 255, 255, 0.04)
+            rgba(255,255,255,0.13),
+            rgba(255,255,255,0.035)
         );
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(18px);
-        box-shadow:
-            0 20px 70px rgba(0, 0, 0, 0.35),
-            inset 0 1px 0 rgba(255, 255, 255, 0.10);
-        margin-bottom: 25px;
-    }
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,0.40),
+        inset 0 1px 0 rgba(255,255,255,0.10);
+
+    margin-bottom: 25px;
+}
 
 
-    .hero-badge {
-        display: inline-block;
-        padding: 7px 14px;
-        margin-bottom: 14px;
-        border-radius: 30px;
-        background: rgba(0, 200, 255, 0.10);
-        border: 1px solid rgba(0, 200, 255, 0.25);
-        color: #67e8f9 !important;
-        font-size: 13px;
-        font-weight: 700;
-    }
+.hero-badge {
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    margin-bottom: 16px;
+
+    border-radius: 30px;
+
+    background: rgba(0,200,255,0.10);
+
+    border: 1px solid rgba(0,200,255,0.30);
+
+    color: #67e8f9 !important;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
 
 
-    .hero h1 {
-        color: #ffffff !important;
-        font-size: 42px;
-        font-weight: 800;
-        margin: 0;
-    }
+.hero h1 {
+    color: #ffffff !important;
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    margin: 0;
+}
 
 
-    .hero p {
-        color: #cbd5e1 !important;
-        font-size: 17px;
-        margin-top: 10px;
-    }
+.hero p {
+    color: #cbd5e1 !important;
+
+    font-size: 17px;
+
+    margin-top: 12px;
+}
 
 
-    /* ===== INFO ===== */
+/* =====================================================
+   SECTION CARDS
+   ===================================================== */
 
-    div[data-testid="stAlert"] {
-        background: rgba(15, 35, 65, 0.75);
-        border: 1px solid rgba(56, 189, 248, 0.20);
-        border-radius: 15px;
-    }
+.section {
+    margin-top: 32px;
 
+    margin-bottom: 18px;
 
-    /* ===== SECTION HEADINGS ===== */
+    padding: 16px 22px;
 
-    .section {
-        margin-top: 32px;
-        margin-bottom: 15px;
-        padding: 15px 20px;
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.055);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(12px);
-        color: #ffffff !important;
-        font-size: 21px;
-        font-weight: 750;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
-    }
+    border-radius: 17px;
 
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.075),
+            rgba(255,255,255,0.025)
+        );
 
-    /* ===== LABELS ===== */
+    border: 1px solid rgba(255,255,255,0.10);
 
-    label {
-        color: #e2e8f0 !important;
-        font-weight: 600 !important;
-    }
+    backdrop-filter: blur(15px);
 
+    color: #ffffff !important;
 
-    /* ===== NUMBER INPUT ===== */
+    font-size: 21px;
 
-    div[data-baseweb="input"] {
-        background: rgba(255, 255, 255, 0.07) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        border-radius: 12px !important;
-    }
+    font-weight: 750;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.20);
+}
 
 
-    div[data-baseweb="input"]:focus-within {
-        border: 1px solid rgba(56, 189, 248, 0.70) !important;
-        box-shadow: 0 0 18px rgba(56, 189, 248, 0.16);
-    }
+/* =====================================================
+   LABELS
+   ===================================================== */
+
+label {
+    color: #e2e8f0 !important;
+
+    font-weight: 600 !important;
+}
 
 
-    div[data-baseweb="input"] input {
-        color: #ffffff !important;
-    }
+/* =====================================================
+   NUMBER INPUT
+   ===================================================== */
+
+div[data-baseweb="input"] {
+
+    background: rgba(255,255,255,0.065) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 12px !important;
+}
 
 
-    /* ===== SELECT BOX ===== */
+div[data-baseweb="input"]:focus-within {
 
-    div[data-baseweb="select"] > div {
-        background: rgba(255, 255, 255, 0.07) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        border-radius: 12px !important;
-    }
+    border: 1px solid rgba(56,189,248,0.75) !important;
 
-
-    div[data-baseweb="select"] * {
-        color: #ffffff !important;
-    }
+    box-shadow:
+        0 0 20px rgba(56,189,248,0.16);
+}
 
 
-    /* ===== BUTTON ===== */
+div[data-baseweb="input"] input {
 
-    div.stButton {
-        display: flex;
-        justify-content: center;
-    }
+    color: #ffffff !important;
+}
 
 
-    div.stButton > button {
-        width: 100%;
-        height: 58px;
-        border-radius: 16px;
-        border: 1px solid rgba(103, 232, 249, 0.35);
-        background: linear-gradient(
+/* =====================================================
+   SELECT BOX
+   ===================================================== */
+
+div[data-baseweb="select"] > div {
+
+    background: rgba(255,255,255,0.065) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 12px !important;
+}
+
+
+div[data-baseweb="select"] * {
+
+    color: #ffffff !important;
+}
+
+
+/* =====================================================
+   PREDICT BUTTON
+   ===================================================== */
+
+div.stButton {
+
+    display: flex;
+
+    justify-content: center;
+}
+
+
+div.stButton > button {
+
+    width: 100%;
+
+    height: 60px;
+
+    border-radius: 17px;
+
+    border: 1px solid rgba(103,232,249,0.40);
+
+    background:
+        linear-gradient(
             135deg,
             #0891b2,
             #2563eb,
             #7c3aed
         );
-        color: #ffffff !important;
-        font-size: 18px;
-        font-weight: 800;
-        box-shadow:
-            0 10px 35px rgba(37, 99, 235, 0.30),
-            inset 0 1px 0 rgba(255, 255, 255, 0.20);
-        transition: all 0.25s ease;
-    }
+
+    color: #ffffff !important;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 12px 40px rgba(37,99,235,0.30);
+
+    transition: all 0.25s ease;
+}
 
 
-    div.stButton > button:hover {
-        transform: translateY(-3px);
-        box-shadow:
-            0 15px 45px rgba(37, 99, 235, 0.45),
-            0 0 25px rgba(103, 232, 249, 0.15);
-    }
+div.stButton > button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 50px rgba(37,99,235,0.45),
+        0 0 25px rgba(103,232,249,0.15);
+}
 
 
-    /* ===== RESULT ===== */
+/* =====================================================
+   RESULT CARD
+   ===================================================== */
 
-    .result {
-        margin-top: 28px;
-        padding: 30px;
-        border-radius: 22px;
-        text-align: center;
-        background: linear-gradient(
+.result {
+
+    margin-top: 28px;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
             135deg,
-            rgba(16, 185, 129, 0.13),
-            rgba(255, 255, 255, 0.05)
+            rgba(16,185,129,0.16),
+            rgba(255,255,255,0.045)
         );
-        border: 1px solid rgba(52, 211, 153, 0.30);
-        backdrop-filter: blur(18px);
-        box-shadow:
-            0 15px 50px rgba(0, 0, 0, 0.30),
-            0 0 30px rgba(52, 211, 153, 0.08);
+
+    border: 1px solid rgba(52,211,153,0.35);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35),
+        0 0 35px rgba(52,211,153,0.08);
+}
+
+
+.result h2 {
+
+    color: #cbd5e1 !important;
+
+    font-size: 19px;
+
+    margin-bottom: 10px;
+}
+
+
+.result h1 {
+
+    color: #6ee7b7 !important;
+
+    font-size: 40px;
+
+    font-weight: 850;
+
+    margin: 5px 0 10px 0;
+}
+
+
+.result p {
+
+    color: #94a3b8 !important;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer {
+
+    margin-top: 50px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,0.035);
+
+    border: 1px solid rgba(255,255,255,0.07);
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+.footer strong {
+
+    color: #cbd5e1;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        padding: 28px 22px;
+
     }
 
+    .hero h1 {
 
-    .result h2 {
-        color: #cbd5e1 !important;
-        font-size: 18px;
-    }
-
-
-    .result h1 {
-        color: #6ee7b7 !important;
-        font-size: 38px;
-        font-weight: 850;
-    }
-
-
-    .result p {
-        color: #94a3b8 !important;
-    }
-
-
-    /* ===== DIVIDER ===== */
-
-    hr {
-        border-color: rgba(255, 255, 255, 0.10) !important;
-        margin-top: 35px;
-        margin-bottom: 35px;
-    }
-
-
-    /* ===== FOOTER ===== */
-
-    .footer {
-        text-align: center;
-        margin-top: 45px;
-        padding: 22px;
-        color: #64748b;
-        font-size: 13px;
-    }
-
-
-    .footer strong {
-        color: #94a3b8;
-    }
-
-
-    /* ===== MOBILE ===== */
-
-    @media (max-width: 768px) {
-
-        .hero {
-            padding: 28px 24px;
-        }
-
-        .hero h1 {
-            font-size: 30px;
-        }
-
-        .hero p {
-            font-size: 15px;
-        }
-
-        .section {
-            font-size: 19px;
-        }
+        font-size: 30px;
 
     }
 
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+    .hero p {
+
+        font-size: 15px;
+
+    }
+
+    .section {
+
+        font-size: 19px;
+
+    }
+
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 
 # =========================================================
 # HERO
 # =========================================================
 
+st.html("""
+<div class="hero">
+
+    <div class="hero-badge">
+        ✨ AI-POWERED MEDICAL PREDICTION
+    </div>
+
+    <h1>
+        🩺 Breast Cancer Status Prediction
+    </h1>
+
+    <p>
+        An interactive Machine Learning application for
+        predicting breast cancer patient status.
+    </p>
+
+</div>
+""")
 
 
+# =========================================================
+# INFORMATION MESSAGE
+# =========================================================
 
 st.info(
     "Enter the patient information below and click "
@@ -383,10 +532,12 @@ st.info(
 # PATIENT INFORMATION
 # =========================================================
 
-st.markdown(
-    '<div class="section">👤 Patient Information</div>',
-    unsafe_allow_html=True
-)
+st.html("""
+<div class="section">
+    👤 Patient Information
+</div>
+""")
+
 
 col1, col2, col3 = st.columns(3)
 
@@ -405,7 +556,11 @@ with col2:
 
     race = st.selectbox(
         "Race",
-        ["White", "Black", "Other"]
+        [
+            "White",
+            "Black",
+            "Other"
+        ]
     )
 
 
@@ -427,10 +582,12 @@ with col3:
 # TUMOR INFORMATION
 # =========================================================
 
-st.markdown(
-    '<div class="section">🔬 Tumor Information</div>',
-    unsafe_allow_html=True
-)
+st.html("""
+<div class="section">
+    🔬 Tumor Information
+</div>
+""")
+
 
 col1, col2, col3 = st.columns(3)
 
@@ -448,7 +605,12 @@ with col2:
 
     t_stage = st.selectbox(
         "T Stage",
-        ["T1", "T2", "T3", "T4"]
+        [
+            "T1",
+            "T2",
+            "T3",
+            "T4"
+        ]
     )
 
 
@@ -456,7 +618,11 @@ with col3:
 
     n_stage = st.selectbox(
         "N Stage",
-        ["N1", "N2", "N3"]
+        [
+            "N1",
+            "N2",
+            "N3"
+        ]
     )
 
 
@@ -507,10 +673,12 @@ with col3:
 # CLINICAL INFORMATION
 # =========================================================
 
-st.markdown(
-    '<div class="section">🏥 Clinical Information</div>',
-    unsafe_allow_html=True
-)
+st.html("""
+<div class="section">
+    🏥 Clinical Information
+</div>
+""")
+
 
 col1, col2, col3 = st.columns(3)
 
@@ -519,7 +687,10 @@ with col1:
 
     a_stage = st.selectbox(
         "A Stage",
-        ["Regional", "Distant"]
+        [
+            "Regional",
+            "Distant"
+        ]
     )
 
 
@@ -527,7 +698,10 @@ with col2:
 
     estrogen_status = st.selectbox(
         "Estrogen Status",
-        ["Positive", "Negative"]
+        [
+            "Positive",
+            "Negative"
+        ]
     )
 
 
@@ -535,7 +709,10 @@ with col3:
 
     progesterone_status = st.selectbox(
         "Progesterone Status",
-        ["Positive", "Negative"]
+        [
+            "Positive",
+            "Negative"
+        ]
     )
 
 
@@ -570,89 +747,123 @@ with col3:
 
 
 # =========================================================
-# INPUT DATA
+# INPUT DATAFRAME
 # =========================================================
 
 input_data = pd.DataFrame(
     {
         "Age": [age],
+
         "Race": [race],
+
         "Marital Status": [marital_status],
+
         "T Stage ": [t_stage],
+
         "N Stage": [n_stage],
+
         "6th Stage": [sixth_stage],
+
         "differentiate": [differentiate],
+
         "Grade": [grade],
+
         "A Stage": [a_stage],
+
         "Tumor Size": [tumor_size],
+
         "Estrogen Status": [estrogen_status],
+
         "Progesterone Status": [progesterone_status],
-        "Regional Node Examined": [regional_node_examined],
-        "Reginol Node Positive": [regional_node_positive],
-        "Survival Months": [survival_months]
+
+        "Regional Node Examined": [
+            regional_node_examined
+        ],
+
+        "Reginol Node Positive": [
+            regional_node_positive
+        ],
+
+        "Survival Months": [
+            survival_months
+        ]
     }
 )
 
 
 # =========================================================
-# PREDICTION
+# PREDICT BUTTON
 # =========================================================
 
 st.markdown("---")
 
-predict_col1, predict_col2, predict_col3 = st.columns(
+
+button_col1, button_col2, button_col3 = st.columns(
     [1, 2, 1]
 )
 
 
-with predict_col2:
+with button_col2:
 
-    if st.button("🔍 Predict Breast Cancer Status"):
+    predict_clicked = st.button(
+        "🔍 Predict Breast Cancer Status"
+    )
 
-        prediction = model.predict(input_data)
 
-        result = prediction[0]
+# =========================================================
+# PREDICTION RESULT
+# =========================================================
 
-        st.markdown(
-            f"""
-            <div class="result">
+if predict_clicked:
 
-                <h2>Prediction Result</h2>
+    prediction = model.predict(input_data)
 
-                <h1>🩺 {result}</h1>
+    result = prediction[0]
 
-                <p>
-                    Result generated by the trained
-                    Machine Learning model.
-                </p>
+    st.html(f"""
+    <div class="result">
 
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        <h2>
+            Prediction Result
+        </h2>
+
+        <h1>
+            🩺 {result}
+        </h1>
+
+        <p>
+            Result generated by the trained
+            Machine Learning model.
+        </p>
+
+    </div>
+    """)
 
 
 # =========================================================
 # FOOTER
 # =========================================================
 
-st.markdown(
-    """
-    <div class="footer">
+st.html("""
+<div class="footer">
 
-        <strong>🩺 Breast Cancer AI Prediction</strong>
+    <strong>
+        🩺 Breast Cancer AI Prediction
+    </strong>
 
-        <br><br>
+    <br><br>
 
-        Built with Python • Scikit-learn • Streamlit
+    Built with Python • Scikit-learn • Streamlit
 
-        <br><br>
+    <br><br>
 
-        ⚠️ This application is for educational and
-        demonstration purposes only. It is not a substitute
-        for professional medical diagnosis.
+    ⚠️ This application is for educational and
+    demonstration purposes only.
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    <br>
+
+    It is not a substitute for professional
+    medical diagnosis.
+
+</div>
+""")
