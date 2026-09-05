@@ -2,23 +2,34 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# ---------------- PAGE CONFIG ----------------
+# ==================================================
+# PAGE CONFIG
+# ==================================================
+
 st.set_page_config(
     page_title="Breast Cancer Prediction",
     page_icon="🩺",
     layout="wide"
 )
 
-# ---------------- LOAD MODEL ----------------
+# ==================================================
+# LOAD MODEL
+# ==================================================
+
 model = joblib.load("breast_cancer_model.pkl")
 
-# ---------------- CUSTOM CSS ----------------
+# ==================================================
+# CUSTOM CSS
+# ==================================================
+
 st.markdown("""
 <style>
 
 .main {
     padding-top: 1rem;
 }
+
+/* ---------- HERO ---------- */
 
 .hero {
     padding: 30px;
@@ -31,31 +42,32 @@ st.markdown("""
 .hero h1 {
     margin-bottom: 5px;
     font-size: 38px;
+    color: #111827 !important;
 }
 
 .hero p {
     font-size: 17px;
     margin-top: 5px;
+    color: #374151 !important;
 }
+
+/* ---------- SECTION HEADINGS ---------- */
 
 .section {
     font-size: 22px;
     font-weight: 700;
-    margin-top: 20px;
+    color: #111827;
+    margin-top: 25px;
     margin-bottom: 12px;
 }
 
-.result {
-    padding: 22px;
-    border-radius: 15px;
-    margin-top: 25px;
-    text-align: center;
-    border: 1px solid #dcdcdc;
+/* ---------- INPUT LABELS ---------- */
+
+label {
+    color: #111827 !important;
 }
 
-.result h2 {
-    margin-bottom: 5px;
-}
+/* ---------- BUTTON ---------- */
 
 div.stButton > button {
     width: 100%;
@@ -65,9 +77,38 @@ div.stButton > button {
     font-weight: 700;
 }
 
+/* ---------- RESULT CARD ---------- */
+
+.result {
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 25px;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+    background-color: #f8fafc;
+}
+
+.result h2 {
+    margin-bottom: 5px;
+    color: #111827 !important;
+}
+
+.result h1 {
+    color: #111827 !important;
+    font-size: 32px;
+}
+
+.result p {
+    color: #374151 !important;
+}
+
+/* ---------- FOOTER ---------- */
+
 .footer {
     text-align: center;
-    margin-top: 35px;
+    margin-top: 40px;
+    padding: 15px;
+    color: #6b7280;
     font-size: 13px;
 }
 
@@ -75,7 +116,10 @@ div.stButton > button {
 """, unsafe_allow_html=True)
 
 
-# ---------------- HEADER ----------------
+# ==================================================
+# HEADER
+# ==================================================
+
 st.markdown("""
 <div class="hero">
     <h1>🩺 Breast Cancer Status Prediction</h1>
@@ -85,16 +129,19 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-st.info("ℹ️ Enter the patient information below and click **Predict**.")
+st.info(
+    "ℹ️ Enter the patient information below and click **Predict**."
+)
 
 
 # ==================================================
 # PATIENT INFORMATION
 # ==================================================
 
-st.markdown('<div class="section">👤 Patient Information</div>',
-            unsafe_allow_html=True)
+st.markdown(
+    '<div class="section">👤 Patient Information</div>',
+    unsafe_allow_html=True
+)
 
 col1, col2, col3 = st.columns(3)
 
@@ -115,7 +162,7 @@ with col2:
 with col3:
     marital_status = st.selectbox(
         "Marital Status",
-        ["Married", "Single", "Divorced", "Widowed", "Separated"]
+        ["Married", "Single ", "Divorced", "Widowed", "Separated"]
     )
 
 
@@ -123,8 +170,10 @@ with col3:
 # TUMOR INFORMATION
 # ==================================================
 
-st.markdown('<div class="section">🔬 Tumor Information</div>',
-            unsafe_allow_html=True)
+st.markdown(
+    '<div class="section">🔬 Tumor Information</div>',
+    unsafe_allow_html=True
+)
 
 col1, col2, col3 = st.columns(3)
 
@@ -170,7 +219,12 @@ with col2:
 with col3:
     grade = st.selectbox(
         "Grade",
-        ["1", "2", "3", "4"]
+        [
+            "1",
+            "2",
+            "3",
+            " anaplastic; Grade IV"
+        ]
     )
 
 
@@ -178,8 +232,10 @@ with col3:
 # CLINICAL INFORMATION
 # ==================================================
 
-st.markdown('<div class="section">🏥 Clinical Information</div>',
-            unsafe_allow_html=True)
+st.markdown(
+    '<div class="section">🏥 Clinical Information</div>',
+    unsafe_allow_html=True
+)
 
 col1, col2, col3 = st.columns(3)
 
@@ -270,18 +326,23 @@ with predict_col2:
             <div class="result">
                 <h2>Prediction Result</h2>
                 <h1>🩺 {result}</h1>
-                <p>Predicted patient status based on the trained ML model.</p>
+                <p>
+                    Predicted patient status based on the trained
+                    Machine Learning model.
+                </p>
             </div>
             """,
             unsafe_allow_html=True
         )
 
 
-# ---------------- FOOTER ----------------
+# ==================================================
+# FOOTER
+# ==================================================
 
 st.markdown("""
 <div class="footer">
     <p>Built with Python • Scikit-learn • Streamlit</p>
-    <p>Machine Learning Project</p>
+    <p>Breast Cancer ML Prediction Project</p>
 </div>
 """, unsafe_allow_html=True)
