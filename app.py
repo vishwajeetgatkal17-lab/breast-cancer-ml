@@ -2,103 +2,234 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load model
-model = joblib.load("breast_cancer_model.pkl")
-
+# ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="Breast Cancer Prediction",
-    page_icon="🩺"
+    page_icon="🩺",
+    layout="wide"
 )
 
-st.title("🩺 Breast Cancer Status Prediction")
+# ---------------- LOAD MODEL ----------------
+model = joblib.load("breast_cancer_model.pkl")
 
-st.write("Enter patient information below.")
+# ---------------- CUSTOM CSS ----------------
+st.markdown("""
+<style>
 
-# Numerical inputs
-age = st.number_input(
-    "Age",
-    min_value=0,
-    max_value=100,
-    value=50
-)
+.main {
+    padding-top: 1rem;
+}
 
-tumor_size = st.number_input(
-    "Tumor Size",
-    min_value=0,
-    value=20
-)
+.hero {
+    padding: 30px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f5f7ff, #eef2ff);
+    border: 1px solid #e0e4ff;
+    margin-bottom: 25px;
+}
 
-regional_node_examined = st.number_input(
-    "Regional Node Examined",
-    min_value=0,
-    value=10
-)
+.hero h1 {
+    margin-bottom: 5px;
+    font-size: 38px;
+}
 
-regional_node_positive = st.number_input(
-    "Regional Node Positive",
-    min_value=0,
-    value=2
-)
+.hero p {
+    font-size: 17px;
+    margin-top: 5px;
+}
 
-survival_months = st.number_input(
-    "Survival Months",
-    min_value=0,
-    value=50
-)
+.section {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
 
-# Categorical inputs
-race = st.selectbox(
-    "Race",
-    ["White", "Black", "Other"]
-)
+.result {
+    padding: 22px;
+    border-radius: 15px;
+    margin-top: 25px;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+}
 
-marital_status = st.selectbox(
-    "Marital Status",
-    ["Married", "Single", "Divorced", "Widowed", "Separated"]
-)
+.result h2 {
+    margin-bottom: 5px;
+}
 
-t_stage = st.selectbox(
-    "T Stage",
-    ["T1", "T2", "T3", "T4"]
-)
+div.stButton > button {
+    width: 100%;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+}
 
-n_stage = st.selectbox(
-    "N Stage",
-    ["N1", "N2", "N3"]
-)
+.footer {
+    text-align: center;
+    margin-top: 35px;
+    font-size: 13px;
+}
 
-sixth_stage = st.selectbox(
-    "6th Stage",
-    ["IIA", "IIB", "IIIA", "IIIB", "IIIC"]
-)
+</style>
+""", unsafe_allow_html=True)
 
-differentiate = st.selectbox(
-    "Differentiate",
-    ["Poorly differentiated", "Moderately differentiated",
-     "Well differentiated", "Undifferentiated"]
-)
 
-grade = st.selectbox(
-    "Grade",
-    ["1", "2", "3", "4"]
-)
+# ---------------- HEADER ----------------
+st.markdown("""
+<div class="hero">
+    <h1>🩺 Breast Cancer Status Prediction</h1>
+    <p>
+        Machine Learning based prediction system for breast cancer patient status.
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
-a_stage = st.selectbox(
-    "A Stage",
-    ["Regional", "Distant"]
-)
 
-estrogen_status = st.selectbox(
-    "Estrogen Status",
-    ["Positive", "Negative"]
-)
+st.info("ℹ️ Enter the patient information below and click **Predict**.")
 
-progesterone_status = st.selectbox(
-    "Progesterone Status",
-    ["Positive", "Negative"]
-)
 
-# Create input dataframe
+# ==================================================
+# PATIENT INFORMATION
+# ==================================================
+
+st.markdown('<div class="section">👤 Patient Information</div>',
+            unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    age = st.number_input(
+        "Age",
+        min_value=0,
+        max_value=100,
+        value=50
+    )
+
+with col2:
+    race = st.selectbox(
+        "Race",
+        ["White", "Black", "Other"]
+    )
+
+with col3:
+    marital_status = st.selectbox(
+        "Marital Status",
+        ["Married", "Single", "Divorced", "Widowed", "Separated"]
+    )
+
+
+# ==================================================
+# TUMOR INFORMATION
+# ==================================================
+
+st.markdown('<div class="section">🔬 Tumor Information</div>',
+            unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    tumor_size = st.number_input(
+        "Tumor Size",
+        min_value=0,
+        value=20
+    )
+
+with col2:
+    t_stage = st.selectbox(
+        "T Stage",
+        ["T1", "T2", "T3", "T4"]
+    )
+
+with col3:
+    n_stage = st.selectbox(
+        "N Stage",
+        ["N1", "N2", "N3"]
+    )
+
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    sixth_stage = st.selectbox(
+        "6th Stage",
+        ["IIA", "IIB", "IIIA", "IIIB", "IIIC"]
+    )
+
+with col2:
+    differentiate = st.selectbox(
+        "Differentiation",
+        [
+            "Poorly differentiated",
+            "Moderately differentiated",
+            "Well differentiated",
+            "Undifferentiated"
+        ]
+    )
+
+with col3:
+    grade = st.selectbox(
+        "Grade",
+        ["1", "2", "3", "4"]
+    )
+
+
+# ==================================================
+# CLINICAL INFORMATION
+# ==================================================
+
+st.markdown('<div class="section">🏥 Clinical Information</div>',
+            unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    a_stage = st.selectbox(
+        "A Stage",
+        ["Regional", "Distant"]
+    )
+
+with col2:
+    estrogen_status = st.selectbox(
+        "Estrogen Status",
+        ["Positive", "Negative"]
+    )
+
+with col3:
+    progesterone_status = st.selectbox(
+        "Progesterone Status",
+        ["Positive", "Negative"]
+    )
+
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    regional_node_examined = st.number_input(
+        "Regional Node Examined",
+        min_value=0,
+        value=10
+    )
+
+with col2:
+    regional_node_positive = st.number_input(
+        "Regional Node Positive",
+        min_value=0,
+        value=2
+    )
+
+with col3:
+    survival_months = st.number_input(
+        "Survival Months",
+        min_value=0,
+        value=50
+    )
+
+
+# ==================================================
+# CREATE INPUT DATA
+# ==================================================
+
 input_data = pd.DataFrame({
     "Age": [age],
     "Race": [race],
@@ -117,9 +248,40 @@ input_data = pd.DataFrame({
     "Survival Months": [survival_months]
 })
 
-# Prediction
-if st.button("🔍 Predict"):
 
-    prediction = model.predict(input_data)
+# ==================================================
+# PREDICTION
+# ==================================================
 
-    st.success(f"Predicted Status: {prediction[0]}")
+st.markdown("---")
+
+predict_col1, predict_col2, predict_col3 = st.columns([1, 2, 1])
+
+with predict_col2:
+
+    if st.button("🔍 Predict Breast Cancer Status"):
+
+        prediction = model.predict(input_data)
+
+        result = prediction[0]
+
+        st.markdown(
+            f"""
+            <div class="result">
+                <h2>Prediction Result</h2>
+                <h1>🩺 {result}</h1>
+                <p>Predicted patient status based on the trained ML model.</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
+# ---------------- FOOTER ----------------
+
+st.markdown("""
+<div class="footer">
+    <p>Built with Python • Scikit-learn • Streamlit</p>
+    <p>Machine Learning Project</p>
+</div>
+""", unsafe_allow_html=True)
